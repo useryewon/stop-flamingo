@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop flamingo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        body, html, h1 {
+            margin: 0; 
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: "Anton", sans-serif;
+        }
+        .image-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .text-overlay {
+            position: absolute;
+            top: 13%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            font-size: 50px;
+            padding-bottom: 10px;
+            line-height: 55px;
+        }
+        #mybutton {
+            color: yellow;
+            font-size: 20px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .overlay-image {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+        }
+        .rotating {
+            animation: rotate 0.3s linear infinite;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="fix-pic2.png" alt="Background Image">
+        <img id="rotatingImage" src="rot-pic2.png" alt="Rotating Image" class="overlay-image rotating">
+        <div class="text-overlay">
+            <h1>99.9% Impossible Challenge</h1>
+            <div id="mybutton">Click here to stop flamingo</div>
+        </div>
+    </div>
+
+    <script>
+        const rotatingImage = document.getElementById('rotatingImage');
+        const myButton = document.getElementById('mybutton');
+        const audio = new Audio('screaming.mp3');
+        audio.loop = true;
+        audio.playbackRate = 4;
+
+        let isRotating = true;
+        let isPlaying = true;
+        
+        myButton.addEventListener('click', () => {
+            if (isRotating) {
+                rotatingImage.classList.remove('rotating');
+            } else {
+                rotatingImage.classList.add('rotating');
+            }
+            isRotating = !isRotating;
+
+            if (isPlaying) {
+                audio.pause();
+                myButton.textContent = "Click here to rotate flamingo";
+            } else {
+                audio.play();
+                myButton.textContent = "Click here to stop flamingo";
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+</html>
